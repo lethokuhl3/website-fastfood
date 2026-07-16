@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Burger Dash - Fast Food & Admin Portal</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">🍔 Ekhoneni</div>
+      <button class="nav-toggle-btn" id="viewToggleBtn">
+        Switch to Admin View
+      </button>
+    </nav>
+
+    <div class="container">
+      <section id="customerView" class="view-section active">
+        <h2>Welcome to Burger Dash!</h2>
+        <p class="subtitle">Satisfy your cravings in just a few clicks.</p>
+
+        <div class="customer-grid">
+          <div>
+            <h3>Our Menu</h3>
+            <div class="menu-grid" id="menuContainer"></div>
+          </div>
+
+          <div class="cart-panel">
+            <h3>Your Order</h3>
+            <div id="cartItems">
+              <p class="empty-cart-text">Your cart is empty.</p>
+            </div>
+            <hr class="divider" />
+            <div class="total-container">
+              <span>Total:</span>
+              <span id="cartTotal">R0.00</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">Place Order</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="adminView" class="view-section">
+        <div class="admin-header">
+          <div>
+            <h2>Admin Dashboard</h2>
+            <p class="subtitle">Manage incoming live customer orders</p>
+          </div>
+          <button class="action-btn clear-btn" id="clearOrdersBtn">
+            Clear Order History
+          </button>
+        </div>
+
+        <table class="order-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="adminOrderTable"></tbody>
+        </table>
+      </section>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
