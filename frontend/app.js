@@ -117,7 +117,7 @@ function toggleView() {
   } else {
     adminSection.classList.remove("active");
     customerSection.classList.add("active");
-    toggleBtn.innerText = "Switch to Admin View";
+    toggleBtn.innerText = "Switch to Order View";
     currentView = "customer";
   }
 }
@@ -243,5 +243,113 @@ function clearAllOrders() {
   if (confirm("Are you sure you want to clear all order history?")) {
     localStorage.removeItem("orders");
     renderAdminOrders();
+  }
+}
+const API_URL = "http://localhost:5000/api/orders";
+
+// MODIFIED: Checkout / Place Order Process
+async function placeOrder() {
+  if (cart.length === 0) {
+    alert("Your cart is empty! Add some delicious food first.");
+    return;
+  }
+
+  const orderPayload = {
+    items: cart.map((i) => `${i.name} (${i.quantity})`).join(", "),
+    total: document.getElementById("cartTotal").innerText,
+  };
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(orderPayload),
+    });
+
+    const newOrder = await response.json();
+
+    cart = [];
+    renderCart();
+    alert(
+      `Order Placed! ID: ${newOrder.orderId}. Check the Admin View to see it!`,
+    );
+  } catch (error) {
+    console.error("Order placement failed", error);
+    alert("Server error, failed to place order.");
+  }
+}
+
+// MODIFIED: Admin Dashboard Rendering
+async function renderAdminOrders() {
+  const tableBody = document.getElementById("adminOrderTable");
+
+  try {
+    const response = await fetch(API_URL);
+    const orders = await response.json();
+
+    if (orders.length === 0) {
+      tableBody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#999;">No orders placed yet.</td></tr>`;
+      return;
+    }
+
+    tableBody.innerHTML = orders
+      .map(
+        (order) => `
+            <tr>
+                <td><strong>${order.orderId}</strong></td>
+                <td>${order.items}</td>
+                <td style="font-weight:bold; color:var(--primary);">${order.total}</td>
+                <td>
+                    <span class="status-badge ${order.status === "Pending" ? "status-pending" : "status-completed"}">
+                        ${order.status}
+                    </span>
+                </td>
+                <td>
+                    ${
+                      order.status === "Pending"
+                        ? `<button class="action-btn complete mark-ready-btn" data-mongodb-id="${order._mongodbId || order._id}">Mark Ready</button>`
+                        : `<span style="color:#2ed573; font-weight:bold;">✓ Done</span>`
+                    }
+                </td>
+            </tr>
+        `,
+      )
+      .join("");
+
+    const readyButtons = tableBody.querySelectorAll(".mark-ready-btn");
+    readyButtons.forEach((btn) => {
+      btn.addEventListener("click", async (e) => {
+        const id = e.target.getAttribute("data-mongodb-id");
+        await completeOrder(id);
+      });
+    });
+  } catch (error) {
+    console.error("Failed to load admin orders", error);
+  }
+}
+
+// MODIFIED: Complete Order
+async function completeOrder(dbId) {
+  try {
+    await fetch(`${API_URL}/${dbId}`, { method: "PATCH" });
+    renderAdminOrders();
+  } catch (error) {
+    console.error("Failed to update order", error);
+  }
+}
+
+// MODIFIED: Clear All Orders
+async function clearAllOrders() {
+  if (
+    confirm(
+      "Are you sure you want to clear all order history from the database?",
+    )
+  ) {
+    try {
+      await fetch(API_URL, { method: "DELETE" });
+      renderAdminOrders();
+    } catch (error) {
+      console.error("Failed to clear data", error);
+    }
   }
 }
