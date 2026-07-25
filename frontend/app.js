@@ -245,7 +245,7 @@ function clearAllOrders() {
     renderAdminOrders();
   }
 }
-const API_URL = "http://localhost:5000/api/orders";
+const API_URL = "/api/orders";
 
 // MODIFIED: Checkout / Place Order Process
 async function placeOrder() {
