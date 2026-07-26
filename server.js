@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "frontend")));
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "h.html"));
+  res.sendFile(path.join(__dirname, "frontend", "ekhoneni.html"));
 });
 
 // Connect to MongoDB
@@ -61,7 +61,7 @@ app.post("/api/orders", async (req, res) => {
     await newOrder.save();
     res.status(201).json(newOrder);
   } catch (error) {
-    res.status(400).json({ message: "Error creating order"});
+    res.status(400).json({ message: "Error creating order" });
   }
 });
 
