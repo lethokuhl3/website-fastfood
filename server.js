@@ -11,9 +11,6 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "frontend")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "ekhoneni.html"));
-});
 
 // Connect to MongoDB
 mongoose
@@ -87,6 +84,11 @@ app.delete("/api/orders", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Error clearing orders", error });
   }
+});
+
+// --- Catch-all wildcard route last ---
+app.get("*", (req, res) => {
+  res.sendfile(path.join(__dirname, "frontend", "ekhoneni.html"));
 });
 
 // Start Server
