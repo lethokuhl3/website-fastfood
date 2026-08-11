@@ -75,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("click", clearAllOrders);
 });
 
-// Render Food Menu with Images
 function renderMenu() {
   const container = document.getElementById("menuContainer");
   container.innerHTML = menuItems
@@ -167,7 +166,6 @@ function renderCart() {
 
 const API_URL = "/api/orders";
 
-// MODIFIED: Checkout / Place Order Process
 async function placeOrder() {
   if (cart.length === 0) {
     alert("Your cart is empty! Add some delicious food first.");
@@ -199,7 +197,6 @@ async function placeOrder() {
   }
 }
 
-// MODIFIED: Admin Dashboard Rendering
 async function renderAdminOrders() {
   const tableBody = document.getElementById("adminOrderTable");
 
@@ -248,7 +245,6 @@ async function renderAdminOrders() {
   }
 }
 
-// MODIFIED: Complete Order
 async function completeOrder(dbId) {
   try {
     await fetch(`${API_URL}/${dbId}`, { method: "PATCH" });
@@ -258,7 +254,6 @@ async function completeOrder(dbId) {
   }
 }
 
-// MODIFIED: Clear All Orders
 async function clearAllOrders() {
   if (
     confirm(
