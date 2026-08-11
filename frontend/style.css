@@ -258,3 +258,59 @@ nav {
   background-color: #ff4757;
   color: white;
 }
+
+.receipt-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.hidden {
+  display: none;
+}
+
+.receipt-card {
+  background: #fff;
+  color: #000;
+  padding: 20px;
+  width: 300px;
+  font-family: "Courier New", Courier, monospace;
+  box-shadow: 0 4px 10px rgba(0, 0, 0.3);
+}
+
+.receipt-header,
+.receipt-footer {
+  text-align: center;
+}
+
+.slip-total {
+  font-size: 1.2rem;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printableReceipt,
+  #printableReceipt * {
+    visibility: visible;
+  }
+  #printableReceipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 80mm; /*standard receipt paper width*/
+    padding: 0;
+    box-shadow: none;
+  }
+  .modal-overlay {
+    display: none !important;
+  }
+}

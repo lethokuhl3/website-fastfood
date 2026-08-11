@@ -66,6 +66,46 @@
       </section>
     </div>
 
+    <div id="receiptModal" class="receipt-modal-overlay hidden">
+      <div class="receipt-card" id="printableReceipt">
+        <div class="receipt-header">
+          <h2>Ekhoneni FAST FOOD</h2>
+          <p>Taste the Local Flavour</p>
+          <p>---------------------------------</p>
+        </div>
+        <div class="receipt-body">
+          <p><strong>Order ID:</strong> <span id="slipOrderId"></span></p>
+          <p><strong>Date:</strong> <span id="slipDate"></span></p>
+          <p>----------------------------------</p>
+
+          <div id="slipItemsContainer">
+            <!-- Purchased Items will render here -->
+          </div>
+
+          <p>----------------------------------</p>
+          <p class="slip-total">
+            <strong>TOTAL:</strong><span id="slipTotal"></span>
+          </p>
+          <p>----------------------------------</p>
+        </div>
+
+        <div class="receipt-footer">
+          <p>Thank you for your order!</p>
+          <p>Your order is being prepared.</p>
+          <button class="action-btn" id="printReceiptBtn">Print Receipt</button>
+          <button class="action-btn close-btn" id="closeReceiptBtn">
+            Close
+          </button>
+        </div>
+      </div>
+
+      <!-- Actions buttons(hidden when printed)-->
+      <div class="modal-buttons">
+        <button onclick="window.print()" class="btn-print">Print</button>
+        <button id="closeModalBtn" class="btn-close">Close</button>
+      </div>
+    </div>
+
     <script src="app.js"></script>
   </body>
 </html>

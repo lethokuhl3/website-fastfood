@@ -186,15 +186,27 @@ async function placeOrder() {
 
     const newOrder = await response.json();
 
+    document.getElementById("SlipOrderId").innerText = newOrder.orderId;
+    document.getElementById("SlipDate").innerText =
+      new Date().toLocaleDateString();
+    document.getElementById("SlipItemsContainer").innerText = newOrder.items;
+    document.getElementById("SlipTotal").innerText = newOrder.total;
+
+    //show receipt modal popup
+    document.getElementById("receiptModal").classList.remove("hidden");
+
+    window.print(); // Trigger print dialog for receipt
+
     cart = [];
     renderCart();
-    alert(
-      `Order Placed! ID: ${newOrder.orderId}. Check the Admin View to see it!`,
-    );
   } catch (error) {
     console.error("Order placement failed", error);
     alert("Server error, failed to place order.");
   }
+}
+
+function closeReceiptModal() {
+  document.getElementById("receiptModal").classList.add("hidden");
 }
 
 async function renderAdminOrders() {
