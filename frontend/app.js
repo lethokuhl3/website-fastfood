@@ -186,11 +186,25 @@ async function placeOrder() {
 
     const newOrder = await response.json();
 
-    document.getElementById("SlipOrderId").innerText = newOrder.orderId;
-    document.getElementById("SlipDate").innerText =
-      new Date().toLocaleDateString();
-    document.getElementById("SlipItemsContainer").innerText = newOrder.items;
-    document.getElementById("SlipTotal").innerText = newOrder.total;
+    const slipOrderId = document.getElementById("SlipOrderId");
+    if (slipOrderId) {
+      slipOrderId.innerText = newOrder.orderId;
+    }
+    const Slipdate = document.getElementById("SlipDate");
+    if (SlipDate) {
+      SlipDate.innerText = new Date().toLocaleDateString();
+    }
+
+    const SlipItemsContainer = document.getElementById("SlipItemsContainer");
+
+    if (SlipItemsContainer) {
+      SlipItemsContainer.innerText = newOrder.items;
+    }
+
+    const SlipTotal = document.getElementById("SlipTotal");
+    if (SlipTotal) {
+      SlipTotal.innerText = newOrder.total;
+    }
 
     //show receipt modal popup
     document.getElementById("receiptModal").classList.remove("hidden");
