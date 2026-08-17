@@ -74,23 +74,23 @@
           <p>---------------------------------</p>
         </div>
         <div class="receipt-body">
-          <p><strong>Order ID:</strong> <span id="slipOrderId"></span></p>
-          <p><strong>Date:</strong> <span id="slipDate"></span></p>
+          <p><strong>Order ID:</strong> <span id="SlipOrderId"></span></p>
+          <p><strong>Date:</strong> <span id="SlipDate"></span></p>
           <p>----------------------------------</p>
 
-          <div id="slipItemsContainer">
+          <div id="SlipItemsContainer">
             <!-- Purchased Items will render here -->
           </div>
 
           <p>----------------------------------</p>
-          <p class="slip-total">
-            <strong>TOTAL:</strong><span id="slipTotal"></span>
+          <p class="Slip-total">
+            <strong>TOTAL:</strong><span id="SlipTotal"></span>
           </p>
           <p>----------------------------------</p>
         </div>
 
       <!-- Actions buttons(hidden when printed) -->
-      <div class="modal-buttons">
+      <div class="modal-buttons" style="margin-top:10px; text-align: center;">
         <button onclick="window.print()" class="btn-print">Print</button>
         <button id="closeModalBtn" class="btn-close">Close</button>
       </div>
