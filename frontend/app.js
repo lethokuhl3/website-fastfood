@@ -211,7 +211,7 @@ async function placeOrder() {
       receiptModal.classList.remove("hidden");
     }
 
-    window.print(); // Trigger print dialog for receipt
+    //window.print(); // Trigger print dialog for receipt
 
     cart = [];
     renderCart();
@@ -221,12 +221,12 @@ async function placeOrder() {
   }
 }
 
-function closeReceiptModal() {
+window.closeReceiptModal = function () {
   const receiptModal = document.getElementById("receiptModal");
   if (receiptModal) {
     receiptModal.classList.add("hidden");
   }
-}
+};
 
 async function renderAdminOrders() {
   const tableBody = document.getElementById("adminOrderTable");
