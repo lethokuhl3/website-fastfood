@@ -222,9 +222,9 @@ async function placeOrder() {
 }
 
 window.closeReceiptModal = function () {
-  const receiptModal = document.getElementById("receiptModal");
-  if (receiptModal) {
-    receiptModal.classList.add("hidden");
+  const modal = document.getElementById("receiptModal");
+  if (modal) {
+    modal.classList.add("hidden");
   }
 };
 
