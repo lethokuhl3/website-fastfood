@@ -196,7 +196,6 @@ async function placeOrder() {
     }
 
     const SlipItemsContainer = document.getElementById("SlipItemsContainer");
-
     if (SlipItemsContainer) {
       SlipItemsContainer.innerText = newOrder.items;
     }
@@ -207,7 +206,10 @@ async function placeOrder() {
     }
 
     //show receipt modal popup
-    document.getElementById("receiptModal").classList.remove("hidden");
+    const receiptModal = document.getElementById("receiptModal");
+    if (receiptModal) {
+      receiptModal.classList.remove("hidden");
+    }
 
     window.print(); // Trigger print dialog for receipt
 
