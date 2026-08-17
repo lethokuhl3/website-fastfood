@@ -222,7 +222,10 @@ async function placeOrder() {
 }
 
 function closeReceiptModal() {
-  document.getElementById("receiptModal").classList.add("hidden");
+  const receiptModal = document.getElementById("receiptModal");
+  if (receiptModal) {
+    receiptModal.classList.add("hidden");
+  }
 }
 
 async function renderAdminOrders() {
