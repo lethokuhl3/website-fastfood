@@ -190,7 +190,7 @@ async function placeOrder() {
     if (slipOrderId) {
       slipOrderId.innerText = newOrder.orderId;
     }
-    const Slipdate = document.getElementById("SlipDate");
+    const SlipDate = document.getElementById("SlipDate");
     if (SlipDate) {
       SlipDate.innerText = new Date().toLocaleDateString();
     }
