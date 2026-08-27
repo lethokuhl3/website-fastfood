@@ -45,7 +45,6 @@ app.post("/api/orders", async (req, res) => {
   try {
     const { items, total } = req.body;
 
-
     const uniqueId = "#" + Math.floor(1000 + Math.random() * 9000);
 
     const newOrder = new Order({
@@ -61,7 +60,6 @@ app.post("/api/orders", async (req, res) => {
   }
 });
 
-
 app.patch("/api/orders/:id", async (req, res) => {
   try {
     const updatedOrder = await Order.findByIdAndUpdate(
@@ -75,7 +73,6 @@ app.patch("/api/orders/:id", async (req, res) => {
   }
 });
 
-
 app.delete("/api/orders", async (req, res) => {
   try {
     await Order.deleteMany({});
@@ -83,7 +80,7 @@ app.delete("/api/orders", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Error clearing orders", error });
   }
-})
+});
 
 app.get("*", (req, res) => {
   res.sendfile(path.join(__dirname, "frontend", "ekhoneni.html"));
