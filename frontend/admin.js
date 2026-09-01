@@ -159,7 +159,7 @@ window.submitWalkInOrder = async function () {
     // Reset POS Cart & Refresh Table
     posCart = [];
     updatePOSCartUI();
-    checkOrders();
+    checkOrderorders();
   } catch (error) {
     console.error("Walk-in order failed:", error);
     alert("Error placing walk-in order.");
