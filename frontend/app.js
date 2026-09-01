@@ -101,24 +101,24 @@ function renderMenu() {
   });
 }
 
-//function toggleView() {
-const customerSection = document.getElementById("customerView");
-const adminSection = document.getElementById("adminView");
-const toggleBtn = document.getElementById("viewToggleBtn");
+function toggleView() {
+  const customerSection = document.getElementById("customerView");
+  const adminSection = document.getElementById("adminView");
+  const toggleBtn = document.getElementById("viewToggleBtn");
 
-if (currentView === "customer") {
-  customerSection.classList.remove("active");
-  adminSection.classList.add("active");
-  toggleBtn.innerText = "Switch to Customer View";
-  currentView = "admin";
-  renderAdminOrders();
-} else {
-  adminSection.classList.remove("active");
-  customerSection.classList.add("active");
-  toggleBtn.innerText = "Switch to Order View";
-  currentView = "customer";
+  if (currentView === "customer") {
+    customerSection.classList.remove("active");
+    adminSection.classList.add("active");
+    toggleBtn.innerText = "Switch to Customer View";
+    currentView = "admin";
+    renderAdminOrders();
+  } else {
+    adminSection.classList.remove("active");
+    customerSection.classList.add("active");
+    toggleBtn.innerText = "Switch to Order View";
+    currentView = "customer";
+  }
 }
-//}
 
 // Cart Management
 function addToCart(itemId) {
