@@ -211,8 +211,6 @@ async function placeOrder() {
       receiptModal.classList.remove("hidden");
     }
 
-    //window.print(); // Trigger print dialog for receipt
-
     cart = [];
     renderCart();
   } catch (error) {
