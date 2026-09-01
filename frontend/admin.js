@@ -43,14 +43,14 @@ function renderAdminTable(orders) {
     <td>${order.items}</td>
     <td>${order.total}</td>
     <td>
-      <button onClick ="printStoreReceipt('${order.orderId || order._id}', '${order.items}', '${order.total}')">Print</button>
+      <button onClick ="printStoreReceipt('${order.orderId || order._id}', '${order.items.replace(/'/g, "\\'")}', '${order.total}')">Print</button>
       </td>`;
       tableBody.appendChild(row);
     });
 }
 
 window.printStoreReceipt = function (id, items, total) {
-  const slipOrderId = document.getElementById("adminSlip");
+  const slipOrderId = document.getElementById("adminSlipId");
   const slipItems = document.getElementById("adminSlipItems");
   const slipTotal = document.getElementById("adminSlipTotal");
 
@@ -58,7 +58,12 @@ window.printStoreReceipt = function (id, items, total) {
   if (slipItems) slipItems.innerText = items;
   if (slipTotal) slipTotal.innerText = total;
 
+  const printModal = document.getElementById("adminPrintModal");
+  if (printModal) printModal.classList.remove("hidden");
+
   window.print();
+
+  if (printModal) printModal.classList.add("hidden");
 };
 
 setInterval(checkOrderorders, 5000);
