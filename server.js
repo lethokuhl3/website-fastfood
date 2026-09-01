@@ -87,7 +87,7 @@ app.get("/admin", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.sendfile(path.join(__dirname, "frontend", "ekhoneni.html"));
+  res.sendFile(path.join(__dirname, "frontend", "ekhoneni.html"));
 });
 
 // Start Server
