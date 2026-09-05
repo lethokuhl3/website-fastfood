@@ -234,29 +234,31 @@ nav {
   background-color: #ffeaa7;
   color: #d63031;
 }
-.status-completed {
+.btn-complete {
   background-color: #c8d6e5;
   color: #222f3e;
-}
-
-.action-btn {
-  background-color: var(--secondary);
   border: none;
-  padding: 0.4rem 0.8rem;
-  color: var(--dark);
+  padding: 6px 12px;
   border-radius: 4px;
   cursor: pointer;
-  font-weight: bold;
 }
 
-.action-btn.complete {
-  background-color: #2ed573;
+.btn-cancel {
+  background-color: #dc3545;
   color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 5px;
 }
 
-.clear-btn {
-  background-color: #ff4757;
-  color: white;
+.btn-cancel:hover {
+  background-color: #c82333;
+}
+
+.btn-complete:hover {
+  background-color: #218838;
 }
 
 .receipt-modal-overlay {

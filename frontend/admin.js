@@ -39,6 +39,28 @@ async function checkOrderorders() {
   }
 }
 
+async function updateOrderStatus(orderId, newStatus) {
+  try {
+    const response = await fetch(`/api/orders/${orderId}/status`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": "Mzilikazikamashobane@574",
+      },
+      body: JSON.stringify({ status: newStatus }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update status");
+    }
+
+    checkOrderorders();
+  } catch (error) {
+    console.error("Error updating order", error);
+    alert("Could not update order status.");
+  }
+}
+
 function renderAdminTable(orders) {
   const tableBody = document.getElementById("adminOrderTable");
   if (!tableBody) return;
@@ -58,7 +80,10 @@ function renderAdminTable(orders) {
     <td>${new Date(order.creativeAt || Date.now()).toLocaleTimeString()}</td>
     <td>${order.items}</td>
     <td>${order.total}</td>
+    <td><span class = "status-badge ${order.status}">${order.status || "Pending"}</span></td>
     <td>
+    <button class = "btn-complete" onclick="updateOrderStatus('${order._id}', 'Complete')">Complete</button>
+    <button class = "btn-cancel" onclick= "updateOrderStatus('${order._id}', 'Cancel')">Cancel</button>
       <button onClick ="printStoreReceipt('${order.orderId || order._id}', '${order.items.replace(/'/g, "\\'")}', '${order.total}')">Print</button>
       </td>`;
       tableBody.appendChild(row);

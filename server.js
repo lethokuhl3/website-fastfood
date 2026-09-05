@@ -75,25 +75,32 @@ app.post("/api/orders", async (req, res) => {
   }
 });
 
-app.patch("/api/orders/:id", async (req, res) => {
+app.patch("/api/orders/:id/status", verifyAdminKey, async (req, res) => {
   try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const validStatuses = ["Pending", "Completed", "Cancelled"];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ message: "invalid status value" });
+    }
+
     const updatedOrder = await Order.findByIdAndUpdate(
       req.params.id,
-      { status: "Completed" },
+      { status },
       { new: true },
     );
-    res.json(updatedOrder);
-  } catch (error) {
-    res.status(400).json({ message: "Error updating order status", error });
-  }
-});
 
-app.delete("/api/orders", async (req, res) => {
-  try {
-    await Order.deleteMany({});
-    res.json({ message: "All order histories deleted successfully." });
+    if (!updatedOrder) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    res.json({
+      message: "Order status updated successfully",
+      order: updatedOrder,
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error clearing orders", error });
+    res.status(500).json({ message: "Failed to update order status", error });
   }
 });
 
