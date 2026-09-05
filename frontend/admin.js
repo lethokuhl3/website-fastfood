@@ -13,7 +13,18 @@ async function checkOrderorders() {
         "x-api-key": "Mzilikazikamashobane@574",
       },
     });
+
+    if (!response.ok) {
+      console.error(`Server error : ${response.status} ${response.statusText}`);
+      return;
+    }
+
     const orders = await response.json();
+
+    if (!Array.isArray(orders)) {
+      console.error("Expected array of orders, received:", orders);
+      return;
+    }
 
     if (orders.length > previousOrderCount && previousOrderCount !== 0) {
       alertSound
