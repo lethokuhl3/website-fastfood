@@ -84,7 +84,7 @@ app.patch("/api/orders/:id/status", verifyAdminKey, async (req, res) => {
     const formattedStatus =
       status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
 
-    const validStatuses = ["Pending", "Completed", "Cancelled"];
+    const validStatuses = ["Pending", "Complete", "Cancel"];
     if (!validStatuses.includes(formattedStatus)) {
       console.log("Status validation failed for:", formattedStatus);
       return res.status(400).json({ message: "invalid status value" });
