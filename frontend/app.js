@@ -64,7 +64,7 @@ let currentView = "customer";
 document.addEventListener("DOMContentLoaded", () => {
   renderMenu();
   renderCart();
-  renderAdminOrders();
+  //renderAdminOrders();
 
   document
     .getElementById("viewToggleBtn")
@@ -99,25 +99,6 @@ function renderMenu() {
       addToCart(itemId);
     });
   });
-}
-
-function toggleView() {
-  const customerSection = document.getElementById("customerView");
-  const adminSection = document.getElementById("adminView");
-  const toggleBtn = document.getElementById("viewToggleBtn");
-
-  if (currentView === "customer") {
-    customerSection.classList.remove("active");
-    adminSection.classList.add("active");
-    toggleBtn.innerText = "Switch to Customer View";
-    currentView = "admin";
-    renderAdminOrders();
-  } else {
-    adminSection.classList.remove("active");
-    customerSection.classList.add("active");
-    toggleBtn.innerText = "Switch to Order View";
-    currentView = "customer";
-  }
 }
 
 // Cart Management
@@ -224,75 +205,3 @@ window.closeReceiptModal = function () {
     modal.classList.add("hidden");
   }
 };
-
-async function renderAdminOrders() {
-  const tableBody = document.getElementById("adminOrderTable");
-
-  try {
-    const response = await fetch(API_URL);
-    const orders = await response.json();
-
-    if (orders.length === 0) {
-      tableBody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#999;">No orders placed yet.</td></tr>`;
-      return;
-    }
-
-    tableBody.innerHTML = orders
-      .map(
-        (order) => `
-            <tr>
-                <td><strong>${order.orderId}</strong></td>
-                <td>${order.items}</td>
-                <td style="font-weight:bold; color:var(--primary);">${order.total}</td>
-                <td>
-                    <span class="status-badge ${order.status === "Pending" ? "status-pending" : "status-completed"}">
-                        ${order.status}
-                    </span>
-                </td>
-                <td>
-                    ${
-                      order.status === "Pending"
-                        ? `<button class="action-btn complete mark-ready-btn" data-mongodb-id="${order._mongodbId || order._id}">Mark Ready</button>`
-                        : `<span style="color:#2ed573; font-weight:bold;">✓ Done</span>`
-                    }
-                </td>
-            </tr>
-        `,
-      )
-      .join("");
-
-    const readyButtons = tableBody.querySelectorAll(".mark-ready-btn");
-    readyButtons.forEach((btn) => {
-      btn.addEventListener("click", async (e) => {
-        const id = e.target.getAttribute("data-mongodb-id");
-        await completeOrder(id);
-      });
-    });
-  } catch (error) {
-    console.error("Failed to load admin orders", error);
-  }
-}
-
-async function completeOrder(dbId) {
-  try {
-    await fetch(`${API_URL}/${dbId}`, { method: "PATCH" });
-    renderAdminOrders();
-  } catch (error) {
-    console.error("Failed to update order", error);
-  }
-}
-
-async function clearAllOrders() {
-  if (
-    confirm(
-      "Are you sure you want to clear all order history from the database?",
-    )
-  ) {
-    try {
-      await fetch(API_URL, { method: "DELETE" });
-      renderAdminOrders();
-    } catch (error) {
-      console.error("Failed to clear data", error);
-    }
-  }
-}
