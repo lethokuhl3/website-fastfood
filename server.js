@@ -81,16 +81,18 @@ app.patch("/api/orders/:id/status", verifyAdminKey, async (req, res) => {
     const { status } = req.body;
 
     console.log("Received status update: ", { id, status });
+    const formattedStatus =
+      status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
 
     const validStatuses = ["Pending", "Completed", "Cancelled"];
-    if (!validStatuses.includes(status)) {
-      console.log("Status validation failed for:", status);
+    if (!validStatuses.includes(formattedStatus)) {
+      console.log("Status validation failed for:", formattedStatus);
       return res.status(400).json({ message: "invalid status value" });
     }
 
     const updatedOrder = await Order.findByIdAndUpdate(
       req.params.id,
-      { status },
+      { status: formattedStatus },
       { new: true },
     );
 
