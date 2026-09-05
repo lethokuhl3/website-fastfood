@@ -13,8 +13,14 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "frontend")));
 
 const verifyAdminKey = (req, res, next) => {
-  const apiKey = req.headers["x-api-key"];
-  if (apiKey && apiKey === process.env.API_Key) {
+  const incomingKey = req.headers["x-api-key"];
+  const expectedKey = process.env.API_Key;
+
+  console.log("---AUTH DEBUG---");
+  console.log("Incoming API Key:", incomingKey);
+  console.log("Expected API Key:", expectedKey);
+
+  if (incomingKey && incomingKey === expectedKey) {
     next();
   } else {
     res.status(403).json({ message: "Forbidden: Invalid API Key" });
