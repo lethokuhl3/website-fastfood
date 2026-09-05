@@ -66,13 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCart();
   //renderAdminOrders();
 
-  document
-    .getElementById("viewToggleBtn")
-    .addEventListener("click", toggleView);
-  document.getElementById("checkoutBtn").addEventListener("click", placeOrder);
-  document
-    .getElementById("clearOrdersBtn")
-    .addEventListener("click", clearAllOrders);
+  const checkoutBtn = document.getElementById("checkoutBtn");
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener("click", placeOrder);
+  }
 });
 
 function renderMenu() {
