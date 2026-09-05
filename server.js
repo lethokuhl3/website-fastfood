@@ -12,6 +12,15 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "frontend")));
 
+const verifyAdminKey = (req, res, next) => {
+  const apiKey = req.headers["x-api-key"];
+  if (apiKey && apiKey === process.env.API_Key) {
+    next();
+  } else {
+    res.status(403).json({ message: "Forbidden: Invalid API Key" });
+  }
+};
+
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -32,7 +41,7 @@ const Order = mongoose.model("Order", orderSchema);
 // --- API ROUTES ---
 
 // 1. Get all orders (Used by Admin view)
-app.get("/api/orders", async (req, res) => {
+app.get("/api/orders", verifyAdminKey, async (req, res) => {
   try {
     const orders = await Order.find().sort({ createdAt: -1 });
     res.json(orders);

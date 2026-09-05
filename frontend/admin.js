@@ -7,7 +7,12 @@ const alertSound = new Audio(
 
 async function checkOrderorders() {
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch(API_URL, {
+      method: "GET",
+      headers: {
+        "x-api-key": "Mzilikazikamashobane@574",
+      },
+    });
     const orders = await response.json();
 
     if (orders.length > previousOrderCount && previousOrderCount !== 0) {
