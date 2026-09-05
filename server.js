@@ -80,8 +80,11 @@ app.patch("/api/orders/:id/status", verifyAdminKey, async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 
+    console.log("Received status update: ", { id, status });
+
     const validStatuses = ["Pending", "Completed", "Cancelled"];
     if (!validStatuses.includes(status)) {
+      console.log("Status validation failed for:", status);
       return res.status(400).json({ message: "invalid status value" });
     }
 
@@ -100,6 +103,7 @@ app.patch("/api/orders/:id/status", verifyAdminKey, async (req, res) => {
       order: updatedOrder,
     });
   } catch (error) {
+    console.error("Error updating order status:", error);
     res.status(500).json({ message: "Failed to update order status", error });
   }
 });

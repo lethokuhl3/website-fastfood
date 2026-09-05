@@ -51,7 +51,9 @@ async function updateOrderStatus(orderId, newStatus) {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to update status");
+      const errorData = await response.json();
+      console.error("Server validation error:", errorData);
+      throw new Error(errorData.error || "Failed to update status");
     }
 
     checkOrderorders();
