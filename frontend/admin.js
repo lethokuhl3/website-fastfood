@@ -147,7 +147,7 @@ window.addToPOSCart = function (name, price) {
   updatePOSCartUI();
 };
 
-// Update POS Cart Display
+// Update counter order display
 function updatePOSCartUI() {
   const list = document.getElementById("posCartList");
   const totalEl = document.getElementById("posTotal");
@@ -199,7 +199,7 @@ window.submitWalkInOrder = async function () {
     // Print receipt immediately on counter printer
     printStoreReceipt(orderId, itemsString, totalString);
 
-    // Reset POS Cart & Refresh Table
+    // Reset counter order Cart & Refresh Table
     posCart = [];
     updatePOSCartUI();
     checkOrderorders();
